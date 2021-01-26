@@ -1,0 +1,23 @@
+{
+  "name": "Express-Note-Keeper",
+  "version": "1.0.0",
+  "description": "A web application that can be used to write, save, and delete notes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jongomezdev/Express-Note-Keeper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jongomezdev/Express-Note-Keeper/issues"
+  },
+  "homepage": "https://github.com/jongomezdev/Express-Note-Keeper#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
