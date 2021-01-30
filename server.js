@@ -21,12 +21,23 @@ app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
 //********************
-//Get /api/notes route
+//GET /api/notes route
 //********************
 app.get("/api/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf-8");
-  let notes = JSON.parse(data);
-  res.json(notes);
+  fs.readFile("db/db.json", "utf-8", (err, data) => {
+    let notes = JSON.parse(data);
+    res.json(notes);
+  });
+});
+
+//********************
+//POST /api/notes route
+//********************
+
+app.post("/api/notes", (req, res) => {
+  fs.readFile("db/db.json", "utf-8", (err, data) => {
+    if (err) throw err;
+  });
 });
 
 app.listen(PORT, () => {
