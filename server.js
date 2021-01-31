@@ -14,15 +14,18 @@ app.use(express.static("public"));
 //*****************
 // HTML GET ROUTES
 //*****************
+
 app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "public/notes.html"))
 );
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
+
 //*********************
 //GET /api/notes route
 //*********************
+
 app.get("/api/notes", (req, res) => {
   fs.readFile(db, (err, data) => {
     if (err) throw err;
@@ -47,15 +50,23 @@ app.post("/api/notes", (req, res) => {
   });
 });
 
-//**********************
+//****************************
 //DELETE /api/notes/:id route
-//**********************
+//****************************
 
 app.delete("/api/notes/:id", (req, res) => {
   fs.readFile(db, (err, data) => {
     if (err) throw err;
     const notes = JSON.parse(data);
     const uniqueID = req.params.id;
+    notes = notes.filter((n) => {
+      return n.id != uniqueID;
+    });
+    fs.writeFileSync(db, JSON.stringify(notes), (err, data) => {
+      if (err) throw err;
+      console.log("Deleted Successfully");
+    });
+    res.json(notes);
   });
 });
 
