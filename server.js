@@ -1,5 +1,5 @@
-const fs = require("fs");
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 const { v4: uuid } = require("uuid");
 const db = "db/db.json";
@@ -27,9 +27,9 @@ app.get("*", (req, res) =>
 //*********************
 
 app.get("/api/notes", (req, res) => {
-  fs.readFile(db, (err, data) => {
+  fs.readFile(db, "utf8", (err, data) => {
     if (err) throw err;
-    const notes = JSON.parse(data);
+    let notes = JSON.parse(data);
     res.json(notes);
   });
 });
@@ -41,7 +41,7 @@ app.get("/api/notes", (req, res) => {
 app.post("/api/notes", (req, res) => {
   fs.readFile(db, (err, data) => {
     if (err) throw err;
-    const notes = JSON.parse(data);
+    let notes = JSON.parse(data);
     let newNote = req.body;
     newNote.id = uuid();
     notes.push(newNote);
@@ -54,21 +54,21 @@ app.post("/api/notes", (req, res) => {
 //DELETE /api/notes/:id route
 //****************************
 
-app.delete("/api/notes/:id", (req, res) => {
-  fs.readFile(db, (err, data) => {
-    if (err) throw err;
-    const notes = JSON.parse(data);
-    const uniqueID = req.params.id;
-    notes = notes.filter((n) => {
-      return n.id != uniqueID;
-    });
-    fs.writeFileSync(db, JSON.stringify(notes), (err, data) => {
-      if (err) throw err;
-      console.log("Deleted Successfully");
-    });
-    res.json(notes);
-  });
-});
+// app.delete("/api/notes/:id", (req, res) => {
+//   fs.readFile(db, "utf-8", (err, data) => {
+//     if (err) throw err;
+//     const notes = JSON.parse(data);
+//     const uniqueID = req.params.id;
+//     notes = notes.filter((n) => {
+//       return n.id != uniqueID;
+//     });
+//     fs.writeFileSync(db, "utf-8", JSON.stringify(notes), (err, data) => {
+//       if (err) throw err;
+//       console.log("Deleted Successfully");
+//     });
+//     res.json(notes);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log("App listening on PORT " + PORT);
@@ -76,5 +76,4 @@ app.listen(PORT, () => {
 // GET /notes - list all notes
 // POST /notes - Create a new note
 // GET /notes/:id - Get one note (using ID)
-// PATCH /note/:id - Update one note
 // DELETE /note/:id - Destroy one note
