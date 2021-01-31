@@ -51,11 +51,13 @@ app.post("/api/notes", (req, res) => {
 //DELETE /api/notes/:id route
 //**********************
 
-// app.delete("/api/notes/:id", (req, res) => {
-//   fs.readFile(db, (err, data) => {
-//     if (err) throw err;
-//   });
-// });
+app.delete("/api/notes/:id", (req, res) => {
+  fs.readFile(db, (err, data) => {
+    if (err) throw err;
+    const notes = JSON.parse(data);
+    const uniqueID = req.params.id;
+  });
+});
 
 app.listen(PORT, () => {
   console.log("App listening on PORT " + PORT);
