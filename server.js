@@ -11,25 +11,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-//*****************
-// HTML GET ROUTES
-//*****************
-
-app.get("/notes", (req, res) =>
-  res.sendFile(path.join(__dirname, "public/notes.html"))
-);
-app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "public/index.html"))
-);
-
 //*********************
 //GET /api/notes route
 //*********************
 
 app.get("/api/notes", (req, res) => {
+  console.log("IS THIS WORKING");
   fs.readFile(db, "utf8", (err, data) => {
     if (err) throw err;
     let notes = JSON.parse(data);
+    console.log("My notes are", notes);
     res.json(notes);
   });
 });
@@ -45,6 +36,7 @@ app.post("/api/notes", (req, res) => {
     let newNote = req.body;
     newNote.id = uuid();
     notes.push(newNote);
+    console.log(newNote);
     fs.writeFileSync(db, JSON.stringify(notes));
     res.json(notes);
   });
@@ -69,6 +61,17 @@ app.post("/api/notes", (req, res) => {
 //     res.json(notes);
 //   });
 // });
+
+//*****************
+// HTML GET ROUTES
+//*****************
+
+app.get("/notes", (req, res) =>
+  res.sendFile(path.join(__dirname, "public/notes.html"))
+);
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "public/index.html"))
+);
 
 app.listen(PORT, () => {
   console.log("App listening on PORT " + PORT);
