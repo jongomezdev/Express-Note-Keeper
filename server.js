@@ -16,11 +16,9 @@ app.use(express.static("public"));
 //*********************
 
 app.get("/api/notes", (req, res) => {
-  console.log("IS THIS WORKING");
   fs.readFile(db, "utf8", (err, data) => {
     if (err) throw err;
     let notes = JSON.parse(data);
-    console.log("My notes are", notes);
     res.json(notes);
   });
 });
@@ -36,7 +34,6 @@ app.post("/api/notes", (req, res) => {
     let newNote = req.body;
     newNote.id = uuid();
     notes.push(newNote);
-    console.log(newNote);
     fs.writeFileSync(db, JSON.stringify(notes));
     res.json(notes);
   });
@@ -46,21 +43,25 @@ app.post("/api/notes", (req, res) => {
 //DELETE /api/notes/:id route
 //****************************
 
-// app.delete("/api/notes/:id", (req, res) => {
-//   fs.readFile(db, "utf-8", (err, data) => {
-//     if (err) throw err;
-//     const notes = JSON.parse(data);
-//     const uniqueID = req.params.id;
-//     notes = notes.filter((n) => {
-//       return n.id != uniqueID;
-//     });
-//     fs.writeFileSync(db, "utf-8", JSON.stringify(notes), (err, data) => {
-//       if (err) throw err;
-//       console.log("Deleted Successfully");
-//     });
-//     res.json(notes);
-//   });
-// });
+app.delete("/api/notes/:id", (req, res) => {
+  fs.readFile(db, "utf-8", (err, data) => {
+    if (err) throw err;
+    let notes = JSON.parse(data);
+    let uniqueID = req.params.id;
+    console.log(uniqueID);
+    notes = notes.filter((n) => n.id !== uniqueID);
+
+    for (n of notes) {
+      n.id = uniqueID;
+    }
+
+    fs.writeFileSync(db, "utf-8", JSON.stringify(notes), (err, data) => {
+      if (err) throw err;
+      console.log("Deleted Successfully");
+    });
+    res.json(notes);
+  });
+});
 
 //*****************
 // HTML GET ROUTES
