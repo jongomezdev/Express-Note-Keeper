@@ -11,32 +11,39 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-//****************
+//*****************
 // HTML GET ROUTES
-//****************
+//*****************
 app.get("/notes", (req, res) =>
   res.sendFile(path.join(__dirname, "public/notes.html"))
 );
 app.get("*", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
-//********************
+//*********************
 //GET /api/notes route
-//********************
+//*********************
 app.get("/api/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf-8", (err, data) => {
-    let notes = JSON.parse(data);
+  fs.readFile(db, (err, data) => {
+    if (err) throw err;
+    const notes = JSON.parse(data);
     res.json(notes);
   });
 });
 
-//********************
+//**********************
 //POST /api/notes route
-//********************
+//**********************
 
 app.post("/api/notes", (req, res) => {
-  fs.readFile("db/db.json", "utf-8", (err, data) => {
+  fs.readFile(db, (err, data) => {
     if (err) throw err;
+    const notes = JSON.parse(data);
+    let newNote = req.body;
+    newNote.id = uuid();
+    notes.push(newNote);
+    fs.writeFileSync(db, JSON.stringify(notes));
+    res.json(notes);
   });
 });
 
