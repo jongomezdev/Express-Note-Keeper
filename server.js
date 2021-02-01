@@ -27,13 +27,12 @@ app.get("/api/notes", (req, res) => {
 app.post("/api/notes", (req, res) => {
   fs.readFile(db, (err, data) => {
     if (err) throw err;
-    let notes = JSON.parse(data);
-
     let newNote = { ...req.body, id: uuid() };
-    notes.push(newNote);
-    fs.writeFileSync(db, JSON.stringify(notes));
-    res.json(notes);
-    // console.log(notes);
+    let notesArr = JSON.parse(data);
+    let updatedNotesArr = [...notesArr, newNote];
+
+    fs.writeFileSync(db, JSON.stringify(updatedNotesArr));
+    res.json(newNote);
   });
 });
 
@@ -42,7 +41,6 @@ app.post("/api/notes", (req, res) => {
 //****************************
 
 app.delete("/api/notes/:id", (req, res) => {
-  console.log("IS THIS WORKING");
   fs.readFile(db, "utf-8", (err, data) => {
     if (err) throw err;
     let notes = JSON.parse(data);
