@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuid } = require("uuid");
+const _ = require("lodash");
 const db = "db/db.json";
 
 const app = express();
@@ -43,24 +44,17 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", (req, res) => {
   fs.readFile(db, "utf-8", (err, data) => {
     if (err) throw err;
-    let notes = JSON.parse(data);
-    let noteID = req.params.id;
-    console.log(noteID);
-    let newNoteId = 0;
+    let id = req.params.id;
+    let notesArr = JSON.parse(data);
 
-    notes = notes.filter((note) => note.id != noteID);
+    let deleteNote = _.find(notesArr, (note) => note.id === id);
 
-    for (note of notes) {
-      note.id = newNoteId.toString();
-      console.log(note);
-      console.log(`The rest of these are your ${notes}`);
-      newNoteId++;
-    }
+    let updatedNotesArr = notesArr.filter(
+      (note) => !_.isEqual(note, deleteNote)
+    );
 
-    fs.writeFileSync(db, "utf-8", JSON.stringify(notes), (err, data) => {
-      if (err) throw err;
-    });
-    res.json(notes);
+    fs.writeFileSync(db, JSON.stringify(updatedNotesArr));
+    res.json(deleteNote);
   });
 });
 
