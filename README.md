@@ -2,6 +2,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+[Deployed Application](https://hidden-harbor-17793.herokuapp.com/)
+
 ## Description
 
 A web application that can be used to write, save, and delete notes. A sleak on-the-go way to write down notes at all times!
