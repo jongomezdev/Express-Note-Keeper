@@ -1,37 +1,54 @@
-# Express-Note-Keeper
+# README Generator
 
-A web application that can be used to write, save, and delete notes.
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Description
 
-Create an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
+A web application that can be used to write, save, and delete notes. A sleak on-the-go way to write down notes at all times!
 
-- The application frontend has already been created, it's your job to build the backend and connect the two.
+## Table of Contents
 
-- The following HTML routes should be created:
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Questions](#questions)
 
-  - GET `/notes` - Should return the `notes.html` file.
+## Installation
 
-  - GET `*` - Should return the `index.html` file
+Clone the repo and run `npm install` for the required dependencies.
 
-- The application should have a `db.json` file on the backend that will be used to store and retrieve notes using the `fs` module.
+## Usage
 
-- The following API routes should be created:
+Application will be invoked by using the `nodemon server.js` command in the terminal.
 
-  - GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
+## License
 
-  - POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>
 
-  - DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
+## Contributing
 
-## User Story
+Open source, feel free to modify and change!
 
-AS A user, I want to be able to write and save notes
+## Questions
 
-I WANT to be able to delete notes I've written before
+Check out my other repositories in the link below:
 
-SO THAT I can organize my thoughts and keep track of tasks I need to complete
+- [GitHub Profile](https://github.com/jongomezdev)
 
-## Business Context
+- For any additional questions, please [email](mailto:jongomezdev@gmail.com) me.
 
-For users that need to keep track of a lot of information, it's easy to forget or be unable to recall something important. Being able to take persistent notes allows users to have written information available when needed.
+## Demo
+
+The following animation demonstrates the application functionality:
+
+![Note Keeper DEMO](public/assets/notekeeper.gif)

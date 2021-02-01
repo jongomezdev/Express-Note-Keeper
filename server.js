@@ -74,5 +74,4 @@ app.listen(PORT, () => {
 });
 // GET /notes - list all notes
 // POST /notes - Create a new note
-// GET /notes/:id - Get one note (using ID)
 // DELETE /note/:id - Destroy one note
