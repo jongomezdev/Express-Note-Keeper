@@ -1,4 +1,4 @@
-# README Generator
+# Express-Note-Keeper
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -22,7 +22,7 @@ Clone the repo and run `npm install` for the required dependencies.
 
 ## Usage
 
-Application will be invoked by using the `nodemon server.js` command in the terminal.
+Application will be invoked by using the `node server.js` command in the terminal.
 
 ## License
 
